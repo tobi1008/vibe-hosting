@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Hosting — Hosting có gu, tốc độ có vibe</title>
+<meta name="description" content="Vibe Hosting: deploy trong 30 giây, edge network toàn cầu, auto-scaling và rollback tức thời cho mọi dự án của bạn.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#" class="logo">
+      <span class="logo__mark">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </span>
+      vibe<span class="logo__dot">.</span>hosting
+    </a>
+    <nav class="nav__links">
+      <a href="#features">Tính năng</a>
+      <a href="#deploy">Cách hoạt động</a>
+      <a href="#pricing">Bảng giá</a>
+      <a href="#testimonials">Đánh giá</a>
+    </nav>
+    <a href="#pricing" class="btn btn--ghost nav__cta">Bắt đầu miễn phí</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Nền tảng hosting cho developer bận rộn</p>
+        <h1>
+          Hosting có gu,<br>
+          tốc độ có <span class="text-gradient">vibe</span>.
+        </h1>
+        <p class="hero__sub">
+          Push code, giữ vibe. Vibe Hosting build, phân phối và giám sát
+          dự án của bạn trên 42 điểm edge toàn cầu — trong chưa đầy 30 giây.
+        </p>
+        <div class="hero__actions">
+          <a href="#pricing" class="btn btn--primary">Deploy dự án đầu tiên</a>
+          <a href="#deploy" class="btn btn--outline">Xem cách hoạt động</a>
+        </div>
+        <p class="hero__note">Không cần thẻ tín dụng · Hoàn tất trong 2 phút</p>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="vibe-meter">
+          <div class="vibe-meter__head">
+            <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+            <span class="vibe-meter__title">server-pulse.live</span>
+          </div>
+          <div class="vibe-meter__bars" id="vibeBars"></div>
+          <div class="vibe-meter__foot">
+            <span>UPTIME <strong>99.99%</strong></span>
+            <span class="vibe-meter__status">● vibe: immaculate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats">
+    <div class="wrap stats__grid">
+      {% for s in stats %}
+      <div class="stats__item">
+        <span class="stats__value">{{ s.value }}</span>
+        <span class="stats__label">{{ s.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="features">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center">Vì sao chọn Vibe</p>
+      <h2 class="section-title">Mọi thứ bạn cần, không thứ gì bạn phải nghĩ tới</h2>
+
+      <div class="features__grid">
+        {% for f in features %}
+        <div class="feature-card">
+          <span class="feature-card__icon">{{ icon_svgs[f.icon] | safe }}</span>
+          <h3>{{ f.title }}</h3>
+          <p>{{ f.desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEPLOY / TERMINAL ============ -->
+  <section id="deploy" class="deploy">
+    <div class="wrap deploy__inner">
+      <div class="deploy__copy">
+        <p class="eyebrow">Cảm nhận vibe</p>
+        <h2 class="section-title section-title--left">Từ "git push" đến lên sóng, chưa đầy 30 giây</h2>
+        <p class="deploy__desc">
+          Không pipeline phức tạp, không file cấu hình 200 dòng.
+          Kết nối repo, Vibe Hosting lo phần còn lại — build, tối ưu,
+          rồi phân phối tới đúng nơi người dùng của bạn đang đứng.
+        </p>
+        <ul class="deploy__list">
+          <li>Tự phát hiện framework, không cần cấu hình thủ công</li>
+          <li>Preview riêng cho từng pull request</li>
+          <li>Log build & runtime hiển thị theo thời gian thực</li>
+        </ul>
+      </div>
+
+      <div class="terminal" role="img" aria-label="Mô phỏng quá trình deploy">
+        <div class="terminal__bar">
+          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          <span class="terminal__title">zsh — vibe deploy</span>
+        </div>
+        <div class="terminal__body" id="terminalBody">
+          {% for row in deploy_log %}
+          <p class="terminal__line" style="--delay: {{ loop.index0 }}">
+            <span class="terminal__t">{{ row.t }}</span>{{ row.line }}
+          </p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section id="pricing" class="pricing">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center">Bảng giá</p>
+      <h2 class="section-title">Chọn nhịp độ phù hợp với dự án của bạn</h2>
+
+      <div class="pricing__grid">
+        {% for p in pricing %}
+        <div class="price-card {% if p.highlight %}price-card--highlight{% endif %}">
+          {% if p.highlight %}<span class="price-card__badge">Được chọn nhiều nhất</span>{% endif %}
+          <h3>{{ p.name }}</h3>
+          <p class="price-card__tagline">{{ p.tagline }}</p>
+          <div class="price-card__price">
+            <span>{{ p.price }}</span><small>{{ p.period }}</small>
+          </div>
+          <ul class="price-card__features">
+            {% for feat in p.features %}
+            <li>{{ feat }}</li>
+            {% endfor %}
+          </ul>
+          <a href="#" class="btn {% if p.highlight %}btn--primary{% else %}btn--outline{% endif %} price-card__cta">{{ p.cta }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section id="testimonials" class="testimonials">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center">Vibe check từ người dùng</p>
+      <h2 class="section-title">Không phải chỉ mình chúng tôi nói vậy</h2>
+
+      <div class="testimonials__grid">
+        {% for t in testimonials %}
+        <blockquote class="testimonial-card">
+          <p>“{{ t.quote }}”</p>
+          <footer>
+            <strong>{{ t.name }}</strong>
+            <span>{{ t.role }}</span>
+          </footer>
+        </blockquote>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta">
+    <div class="wrap cta__inner">
+      <h2>Sẵn sàng bắt sóng vibe?</h2>
+      <p>Tạo dự án đầu tiên trong 2 phút. Gói Chill miễn phí mãi mãi.</p>
+      <a href="#pricing" class="btn btn--primary btn--lg">Bắt đầu miễn phí</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <a href="#" class="logo logo--footer">
+        <span class="logo__mark">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </span>
+        vibe<span class="logo__dot">.</span>hosting
+      </a>
+      <p>Hosting có gu, tốc độ có vibe.</p>
+    </div>
+
+    {% for group, links in footer_links.items() %}
+    <div class="footer__col">
+      <h4>{{ group }}</h4>
+      <ul>
+        {% for l in links %}<li><a href="#">{{ l }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="wrap footer__bottom">
+    <span>© 2026 Vibe Hosting. Đây là landing page demo.</span>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
